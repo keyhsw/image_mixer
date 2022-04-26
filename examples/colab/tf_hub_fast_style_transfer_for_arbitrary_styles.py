@@ -111,8 +111,8 @@ def show_n(images, titles=('',)):
 
 # @title Load example images  { display-mode: "form" }
 
-content_image_url = 'https://freeimage.host/i/VsCchl'  # @param {type:"string"}
-style_image_url = 'https://freeimage.host/i/VsC5kG'  # @param {type:"string"}
+content_image_url = 'https://live.staticflickr.com/65535/52032998695_f57c61746c_c.jpg'  # @param {type:"string"}
+style_image_url = 'https://live.staticflickr.com/65535/52032731604_a815a0b19f_c.jpg'  # @param {type:"string"}
 output_image_size = 384  # @param {type:"integer"}
 
 # The content image size can be arbitrary.
