@@ -67,7 +67,7 @@ import matplotlib.pylab as plt
 import numpy as np
 import tensorflow as tf
 import tensorflow_hub as hub
-
+import gradio as gr
 
 # @title Define image loading and visualization functions  { display-mode: "form" }
 
@@ -154,10 +154,25 @@ is the same as the content image shape.
 # Stylize content image with given style image.
 # This is pretty fast within a few milliseconds on a GPU.
 
-outputs = hub_module(tf.constant(content_image), tf.constant(style_image))
-stylized_image = outputs[0]
+def modify(imageinput,style_input):
+    outputs = hub_module(tf.constant(imageinput), tf.constant(style_input))
+    return outputs[0]
+#stylized_image = outputs[0]
 
 # Visualize input images and the generated stylized image.
 
-show_n([content_image, style_image, stylized_image], titles=['Original content image', 'Style image', 'Stylized image'])
+#show_n([content_image, style_image, stylized_image], titles=['Original content image', 'Style image', 'Stylized image'])
+
+# Gradio app
+
+content_image_input = gr.inputs.Image(label="Content Image")
+style_image_input = gr.inputs.Image(shape=(256, 256), label="Style Image")
+
+app_interface = gr.Interface(modify,
+                             inputs=[content_image_input, style_image_input],
+                             outputs="image",
+                             title="Fast Neural Style Transfer",
+                             description="Gradio demo for Fast Neural Style Transfer using a pretrained Image Stylization model from TensorFlow Hub. To use it, simply upload a content image and style image, or click one of the examples to load them. To learn more about the project, please find the references listed below.",
+                             )
+app_interface.launch()
 
