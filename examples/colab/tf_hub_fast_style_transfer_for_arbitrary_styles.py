@@ -107,12 +107,15 @@ def show_n(images, titles=('',)):
     plt.title(titles[i] if len(titles) > i else '')
   plt.show()
 
+
+
+
 """Let's get as well some images to play with."""
 
 # @title Load example images  { display-mode: "form" }
 
-content_image_url = 'https://live.staticflickr.com/65535/52032998695_f57c61746c_c.jpg'  # @param {type:"string"}
-style_image_url = 'https://live.staticflickr.com/65535/52032731604_a815a0b19f_c.jpg'  # @param {type:"string"}
+#content_image_url = 'https://live.staticflickr.com/65535/52032998695_f57c61746c_c.jpg'  # @param {type:"string"}
+#style_image_url = 'https://live.staticflickr.com/65535/52032731604_a815a0b19f_c.jpg'  # @param {type:"string"}
 output_image_size = 384  # @param {type:"integer"}
 
 # The content image size can be arbitrary.
@@ -122,8 +125,16 @@ content_img_size = (output_image_size, output_image_size)
 # well but will lead to different results).
 style_img_size = (256, 256)  # Recommended to keep it at 256.
 
-content_image = load_image(content_image_url, content_img_size)
-style_image = load_image(style_image_url, style_img_size)
+
+
+# Load images from app
+content_image_input = gr.inputs.Image(label="Content Image")
+style_image_input = gr.inputs.Image(shape=(256, 256), label="Style Image")
+
+
+
+content_image = load_image(content_image_input, content_img_size)
+style_image = load_image(style_image_input, style_img_size)
 style_image = tf.nn.avg_pool(style_image, ksize=[3,3], strides=[1,1], padding='SAME')
 show_n([content_image, style_image], ['Content image', 'Style image'])
 
@@ -155,6 +166,10 @@ is the same as the content image shape.
 # This is pretty fast within a few milliseconds on a GPU.
 
 def modify(imageinput,style_input):
+    content_image = load_image(imageinput, content_img_size)
+    style_image = load_image(style_input, style_img_size)
+    style_image = tf.nn.avg_pool(style_image, ksize=[3,3], strides=[1,1], padding='SAME')
+    #show_n([content_image, style_image], ['Content image', 'Style image'])
     outputs = hub_module(tf.constant(imageinput), tf.constant(style_input))
     return outputs[0]
 #stylized_image = outputs[0]
@@ -165,8 +180,6 @@ def modify(imageinput,style_input):
 
 # Gradio app
 
-content_image_input = gr.inputs.Image(label="Content Image")
-style_image_input = gr.inputs.Image(shape=(256, 256), label="Style Image")
 
 app_interface = gr.Interface(modify,
                              inputs=[content_image_input, style_image_input],
