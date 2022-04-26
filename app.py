@@ -133,10 +133,10 @@ style_image_input = gr.inputs.Image(shape=(256, 256), label="Style Image")
 
 
 
-content_image = load_image(content_image_input, content_img_size)
-style_image = load_image(style_image_input, style_img_size)
-style_image = tf.nn.avg_pool(style_image, ksize=[3,3], strides=[1,1], padding='SAME')
-show_n([content_image, style_image], ['Content image', 'Style image'])
+#content_image = load_image(content_image_input, content_img_size)
+#style_image = load_image(style_image_input, style_img_size)
+#style_image = tf.nn.avg_pool(style_image, ksize=[3,3], strides=[1,1], padding='SAME')
+#show_n([content_image, style_image], ['Content image', 'Style image'])
 
 """## Import TF Hub module"""
 
