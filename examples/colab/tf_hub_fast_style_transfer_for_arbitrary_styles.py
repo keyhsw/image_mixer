@@ -68,10 +68,6 @@ import numpy as np
 import tensorflow as tf
 import tensorflow_hub as hub
 
-print("TF Version: ", tf.__version__)
-print("TF Hub version: ", hub.__version__)
-print("Eager mode enabled: ", tf.executing_eagerly())
-print("GPU available: ", tf.config.list_physical_devices('GPU'))
 
 # @title Define image loading and visualization functions  { display-mode: "form" }
 
@@ -115,8 +111,8 @@ def show_n(images, titles=('',)):
 
 # @title Load example images  { display-mode: "form" }
 
-content_image_url = 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Golden_Gate_Bridge_from_Battery_Spencer.jpg/640px-Golden_Gate_Bridge_from_Battery_Spencer.jpg'  # @param {type:"string"}
-style_image_url = 'https://upload.wikimedia.org/wikipedia/commons/0/0a/The_Great_Wave_off_Kanagawa.jpg'  # @param {type:"string"}
+content_image_url = 'https://freeimage.host/i/VsCchl'  # @param {type:"string"}
+style_image_url = 'https://freeimage.host/i/VsC5kG'  # @param {type:"string"}
 output_image_size = 384  # @param {type:"integer"}
 
 # The content image size can be arbitrary.
@@ -165,6 +161,9 @@ stylized_image = outputs[0]
 
 show_n([content_image, style_image, stylized_image], titles=['Original content image', 'Style image', 'Stylized image'])
 
+
+
+'''
 """## Let's try it on more images"""
 
 # @title To Run: Load more images { display-mode: "form" }
