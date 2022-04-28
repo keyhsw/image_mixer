@@ -168,7 +168,7 @@ is the same as the content image shape.
 def modify(imageinput,style_input):
     #content_image = load_image(imageinput, content_img_size)
     #style_image = load_image(style_input, style_img_size)
-    style_image = tf.nn.avg_pool(style_image, ksize=[3,3], strides=[1,1], padding='SAME')
+    style_image = tf.nn.avg_pool(style_input, ksize=[3,3], strides=[1,1], padding='SAME')
     #show_n([content_image, style_image], ['Content image', 'Style image'])
     outputs = hub_module(tf.constant(imageinput), tf.constant(style_input))
     return outputs[0]
