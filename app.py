@@ -178,7 +178,7 @@ def perform_style_transfer(content_image, style_image):
     content_image = tf.convert_to_tensor(content_image, np.float32)[tf.newaxis, ...] / 255.
     style_image = tf.convert_to_tensor(style_image, np.float32)[tf.newaxis, ...] / 255.
     
-    output = style_transfer_model(content_image, style_image)
+    output = hub_module(content_image, style_image)
     stylized_image = output[0]
     
     return Image.fromarray(np.uint8(stylized_image[0] * 255))
