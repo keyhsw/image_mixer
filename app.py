@@ -90,8 +90,8 @@ def load_image(image, image_size=(256, 256), preserve_aspect_ratio=True):
   #img = tf.io.decode_image(
      # tf.io.read_file(image_path),
       #channels=3, dtype=tf.float32)[tf.newaxis, ...]
-  img = crop_center(image)
-  img = tf.image.resize(img, image_size, preserve_aspect_ratio=True)
+  #img = crop_center(image)
+  img = tf.image.resize(image, image_size, preserve_aspect_ratio=True)
   return img
 
 def show_n(images, titles=('',)):
