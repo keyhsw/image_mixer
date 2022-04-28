@@ -164,7 +164,7 @@ is the same as the content image shape.
 
 # Stylize content image with given style image.
 # This is pretty fast within a few milliseconds on a GPU.
-
+'''
 def modify(imageinput,style_input):
     content_image = load_image(imageinput, content_img_size)
     style_image = load_image(style_input, style_img_size)
@@ -172,6 +172,16 @@ def modify(imageinput,style_input):
     #show_n([content_image, style_image], ['Content image', 'Style image'])
     outputs = hub_module(tf.constant(imageinput), tf.constant(style_input))
     return outputs[0]
+'''
+def perform_style_transfer(content_image, style_image):
+    
+    content_image = tf.convert_to_tensor(content_image, np.float32)[tf.newaxis, ...] / 255.
+    style_image = tf.convert_to_tensor(style_image, np.float32)[tf.newaxis, ...] / 255.
+    
+    output = style_transfer_model(content_image, style_image)
+    stylized_image = output[0]
+    
+    return Image.fromarray(np.uint8(stylized_image[0] * 255))
 #stylized_image = outputs[0]
 
 # Visualize input images and the generated stylized image.
@@ -181,7 +191,7 @@ def modify(imageinput,style_input):
 # Gradio app
 
 #label = gr.outputs.Image(modify(content_image_input, style_image_input))
-app_interface = gr.Interface(modify,
+app_interface = gr.Interface(perform_style_transfer,
                              inputs=[content_image_input, style_image_input],
                              outputs='image',
                              title="Fast Neural Style Transfer",
