@@ -61,7 +61,7 @@ Let's start with importing TF2 and all relevant dependencies.
 
 import functools
 import os
-
+from PIL import Image
 from matplotlib import gridspec
 import matplotlib.pylab as plt
 import numpy as np
