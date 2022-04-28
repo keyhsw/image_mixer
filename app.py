@@ -82,15 +82,15 @@ def crop_center(image):
   return image
 
 @functools.lru_cache(maxsize=None)
-def load_image(image_url, image_size=(256, 256), preserve_aspect_ratio=True):
+def load_image(image, image_size=(256, 256), preserve_aspect_ratio=True):
   """Loads and preprocesses images."""
   # Cache image file locally.
-  image_path = tf.keras.utils.get_file(os.path.basename(image_url)[-128:], image_url)
+  #image_path = tf.keras.utils.get_file(os.path.basename(image_url)[-128:], image_url)
   # Load and convert to float32 numpy array, add batch dimension, and normalize to range [0, 1].
-  img = tf.io.decode_image(
+  #img = tf.io.decode_image(
       tf.io.read_file(image_path),
       channels=3, dtype=tf.float32)[tf.newaxis, ...]
-  img = crop_center(img)
+  img = crop_center(image)
   img = tf.image.resize(img, image_size, preserve_aspect_ratio=True)
   return img
 
@@ -166,9 +166,9 @@ is the same as the content image shape.
 # This is pretty fast within a few milliseconds on a GPU.
 
 def modify(imageinput,style_input):
-    #content_image = load_image(imageinput, content_img_size)
-    #style_image = load_image(style_input, style_img_size)
-    style_image = tf.nn.avg_pool(style_input, ksize=[3,3], strides=[1,1], padding='SAME')
+    content_image = load_image(imageinput, content_img_size)
+    style_image = load_image(style_input, style_img_size)
+    style_image = tf.nn.avg_pool(style_image, ksize=[3,3], strides=[1,1], padding='SAME')
     #show_n([content_image, style_image], ['Content image', 'Style image'])
     outputs = hub_module(tf.constant(imageinput), tf.constant(style_input))
     return outputs[0]
