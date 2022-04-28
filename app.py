@@ -180,7 +180,7 @@ def modify(imageinput,style_input):
 
 # Gradio app
 
-label = gr.outputs.Image(modify(content_image_input, style_image_input))
+#label = gr.outputs.Image(modify(content_image_input, style_image_input))
 app_interface = gr.Interface(modify,
                              inputs=[content_image_input, style_image_input],
                              outputs='image',
