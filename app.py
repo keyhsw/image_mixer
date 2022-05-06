@@ -193,9 +193,9 @@ def perform_style_transfer(content_image, style_image):
 #label = gr.outputs.Image(modify(content_image_input, style_image_input))
 app_interface = gr.Interface(perform_style_transfer,
                              inputs=[content_image_input, style_image_input],
-                             outputs='image',
+                             gr.outputs.Image(),
                              title="Fast Neural Style Transfer",
                              description="Gradio demo for Fast Neural Style Transfer using a pretrained Image Stylization model from TensorFlow Hub. To use it, simply upload a content image and style image, or click one of the examples to load them. To learn more about the project, please find the references listed below.",
                              )
-app_interface.launch()
+app_interface.launch(debug= True)
 
